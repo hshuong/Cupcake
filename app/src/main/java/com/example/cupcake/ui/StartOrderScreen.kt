@@ -108,10 +108,10 @@ fun SelectQuantityButton(
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun StartOrderPreview() {
-    CupcakeTheme {
+    CupcakeTheme(darkTheme = false) {
         StartOrderScreen(
             quantityOptions = DataSource.quantityOptions,
             modifier = Modifier
