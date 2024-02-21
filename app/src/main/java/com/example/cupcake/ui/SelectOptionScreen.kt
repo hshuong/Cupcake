@@ -121,10 +121,10 @@ fun SelectOptionScreen(
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun SelectOptionPreview() {
-    CupcakeTheme {
+    CupcakeTheme(darkTheme = false) {
         SelectOptionScreen(
             subtotal = "299.99",
             options = listOf("Option 1", "Option 2", "Option 3", "Option 4"),
