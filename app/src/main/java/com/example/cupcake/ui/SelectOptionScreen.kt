@@ -75,7 +75,7 @@ fun SelectOptionScreen(
                             selectedValue = item
                             onSelectionChanged(item)
                         }
-                    ),
+                    ).fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     RadioButton(
@@ -111,7 +111,7 @@ fun SelectOptionScreen(
         ) {
             OutlinedButton(
                 modifier = Modifier.weight(1f),
-                onClick = onCancelButtonClicked // hien la ham rong
+                onClick = onCancelButtonClicked
             ) {
                 Text(stringResource(R.string.cancel))
             }

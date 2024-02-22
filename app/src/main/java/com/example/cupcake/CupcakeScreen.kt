@@ -116,10 +116,18 @@ fun CupcakeApp(
                     // List cac tuy chon radio, 1 tuy chon co cau truc Pair(R.string.one_cupcake, 1)
                     // DataSource la 1 singleton object, doi tuong duy nhat chia se giua nhieu class
                     quantityOptions = DataSource.quantityOptions,
-                    onNextButtonClicked = {
+                    onNextButtonClicked = {//ab ->
                         //  Before navigating to the next screen, you should update the view model
                         //  so that the app displays the correct subtotal
+                        // viewModel.setQuantity(ab)
+                        // it chi co y nghia trong pham vi lambda nay thoi
+                        // it la tham so cua tham so kieu ham onNextButtonClicked cua
+                        // ham @Composable StartOrderScreen.
+                        // Gia tri thuc su cua tham so it duoc gan trong phan dinh nghia
+                        // ham @Composable StartOrderScreen, chinh la item.second
                         viewModel.setQuantity(it)
+                        // Cach lam tren, truyen vao 1 ham co tham so duoc lay tu ben trong
+                        // va thuc thi ham do voi tham so tu ben trong
                         navController.navigate(CupcakeScreen.Flavor.name)
                     },
                     modifier = Modifier
@@ -193,7 +201,7 @@ fun CupcakeApp(
 
 // 1 ham dung chung cho nhieu loi goi bam nut Cancel cua ca 3 screens
 private fun cancelOrderAndNavigateToStart(
-    // reset lai UiState
+    // dung viewModel de reset lai UiState
     viewModel: OrderViewModel,
     // de navigate
     navController: NavHostController

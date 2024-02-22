@@ -98,6 +98,10 @@ fun StartOrderScreen(
                     // We'll pass the second property of the selected pair
                     // when calling the onNextButtonClicked() function.
                     // Bam vao 1 tuy chon so luong banh muon mua, vi du chon button 6 coc
+                    // Trong than cua dinh nghia ham (ko phai than loi goi ham), se xac
+                    // dinh tham so onNextButtonClicked cua ham StartOrderScreen duoc
+                    // dung nhu the nao. O day la tham so onNextButtonClicked duoc goi
+                    // de chay.
                     onClick = {onNextButtonClicked(item.second)}
                     // Se goi va thuc hien ham onNextButtonClicked(6 cai)
                     // onNextButtonClicked duoc truyen tu CupcakeScreen.kt vao, voi dinh nghia la
