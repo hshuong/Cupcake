@@ -48,7 +48,16 @@ import com.example.cupcake.ui.theme.CupcakeTheme
  */
 @Composable
 fun StartOrderScreen(
+    // the first Int is a resource ID for the string to display
+    // on each button. The second Int is the actual quantity of cupcakes
     quantityOptions: List<Pair<Int, Int>>,
+    // adding a function type parameter that is called
+    // when one of the quantity buttons is pressed on the first screen
+    // ham nay duoc nhan tu ngoai vao, khi bam vao 1 nut so luong thi
+    // ham ben ngoai co trach nhiem cap nhat so luong vao UiState va
+    // va dieu huong. So luong la tham so cua tham so kieu ham
+    onNextButtonClicked: (Int) -> Unit,
+    onCancelButtonClicked: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -83,7 +92,10 @@ fun StartOrderScreen(
             quantityOptions.forEach { item ->
                 SelectQuantityButton(
                     labelResourceId = item.first,
-                    onClick = {}
+                    // item.second la phan tu thu 2 trong Pair<Int, Int>
+                    // cua 1 thanh phan trong List quantityOptions.
+                    // Vi du la so 1 trong Pair(R.string.one_cupcake, 1)
+                    onClick = {onNextButtonClicked(item.second)}
                 )
             }
         }
@@ -114,6 +126,7 @@ fun StartOrderPreview() {
     CupcakeTheme(darkTheme = false) {
         StartOrderScreen(
             quantityOptions = DataSource.quantityOptions,
+            onNextButtonClicked = {},
             modifier = Modifier
                 .fillMaxSize()
                 .padding(dimensionResource(R.dimen.padding_medium))

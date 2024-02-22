@@ -80,6 +80,11 @@ fun CupcakeApp(
     // navController de navigate qua lai giua cac screen
     // instance navController nay duoc dung o 2 noi la o NavHost va o AppBar nen
     // khai la 1 bien o day de dung duoc o ca 2 composable NavHost va AppBar
+    // Logic dieu huong dung navController can tach khoi UI Composable. Do do, ko
+    // truyen truc tiep navController vao cac Composable de thuc hien dieu huong
+    // ma truyen vao dang function type, de viec dieu huong se thuc hien o ben
+    // ngoai Composable, cac Composable se quyet dinh khi nao thi goi ham
+    // dieu huong
 ) {
 
     Scaffold(
@@ -100,15 +105,22 @@ fun CupcakeApp(
             startDestination = CupcakeScreen.Start.name,
             modifier = Modifier.padding(innerPadding)
         ) {
-            // ben trong than ham NavHost la tham so cuoi dung cua NavHost co kieu function (trailing lambda)
-
-            // moi mot route la doi tuong duoc dinh nghia bang ham composable voi 2 tham so chinh
+            // ben trong than ham NavHost la tham so cuoi dung cua NavHost co
+            // kieu function (trailing lambda) moi mot route la doi tuong, route
+            // duoc dinh nghia bang ham composable voi 2 tham so chinh
             // route ten cua 1 screen va composable noi dung la 1 screen se hien thi
             composable(CupcakeScreen.Start.name) {
                 StartOrderScreen(
                     // List cac tuy chon radio, 1 tuy chon co cau truc Pair(R.string.one_cupcake, 1)
                     // DataSource la 1 singleton object, doi tuong duy nhat chia se giua nhieu class
                     quantityOptions = DataSource.quantityOptions,
+                    onNextButtonClicked = {
+                        //  Before navigating to the next screen, you should update the view model
+                        //  so that the app displays the correct subtotal
+                        viewModel.setQuantity(it)
+
+                        navController.navigate(CupcakeScreen.Flavor.name)
+                    },
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(dimensionResource(R.dimen.padding_medium))
@@ -127,6 +139,8 @@ fun CupcakeApp(
                 // voi tham so id truyen vao ham getString(id)
                 SelectOptionScreen(
                     subtotal = uiState.price, // lay tong gia tri don hang tu uiState
+                    onNextButtonClicked = { navController.navigate(CupcakeScreen.Pickup.name) },
+                    onCancelButtonClicked = {},
                     // Truyen vao tham so tuy chon dang List cac flavor
                     // Ham map tao ra 1 List tu 1 List goc.
                     // o day tu List cac flavors tao ra List cac String lay ra tu
@@ -151,6 +165,7 @@ fun CupcakeApp(
             composable(route = CupcakeScreen.Pickup.name) {
                 SelectOptionScreen(
                     subtotal = uiState.price,
+                    onNextButtonClicked = { navController.navigate(CupcakeScreen.Summary.name) },
                     options = uiState.pickupOptions,
                     onSelectionChanged = { viewModel.setDate(it) }, // change price
                     modifier = Modifier.fillMaxHeight()
@@ -160,6 +175,10 @@ fun CupcakeApp(
             composable(route = CupcakeScreen.Summary.name) {
                 OrderSummaryScreen(
                     orderUiState = uiState,
+                    onCancelButtonClicked = {},
+                    onSendButtonClicked = { subject: String, summary: String ->
+
+                    },
                     modifier = Modifier.fillMaxHeight()
                 )
             }
