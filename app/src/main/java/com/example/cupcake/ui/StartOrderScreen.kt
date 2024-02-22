@@ -37,6 +37,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.cupcake.CupcakeScreen
 import com.example.cupcake.R
 import com.example.cupcake.data.DataSource
 import com.example.cupcake.ui.theme.CupcakeTheme
@@ -56,8 +57,7 @@ fun StartOrderScreen(
     // ham nay duoc nhan tu ngoai vao, khi bam vao 1 nut so luong thi
     // ham ben ngoai co trach nhiem cap nhat so luong vao UiState va
     // va dieu huong. So luong la tham so cua tham so kieu ham
-    onNextButtonClicked: (Int) -> Unit,
-    onCancelButtonClicked: () -> Unit = {},
+    onNextButtonClicked: (Int) -> Unit, // khong co gia tri mac dinh cua tham so
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -95,7 +95,20 @@ fun StartOrderScreen(
                     // item.second la phan tu thu 2 trong Pair<Int, Int>
                     // cua 1 thanh phan trong List quantityOptions.
                     // Vi du la so 1 trong Pair(R.string.one_cupcake, 1)
+                    // We'll pass the second property of the selected pair
+                    // when calling the onNextButtonClicked() function.
+                    // Bam vao 1 tuy chon so luong banh muon mua, vi du chon button 6 coc
                     onClick = {onNextButtonClicked(item.second)}
+                    // Se goi va thuc hien ham onNextButtonClicked(6 cai)
+                    // onNextButtonClicked duoc truyen tu CupcakeScreen.kt vao, voi dinh nghia la
+                    //    onNextButtonClicked = {
+                    //    //  Before navigating to the next screen, you should update the view model
+                    //   //  so that the app displays the correct subtotal
+                    //    viewModel.setQuantity(it)
+                    // => it la item.second la so coc
+                    //    navController.navigate(CupcakeScreen.Flavor.name)
+                    // => chuyen huong den va hien thi trang SelectOptionsScreen kieu Flavor
+                    //},
                 )
             }
         }

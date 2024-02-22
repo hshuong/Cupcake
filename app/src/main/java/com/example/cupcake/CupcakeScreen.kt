@@ -15,6 +15,8 @@
  */
 package com.example.cupcake
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -118,7 +120,6 @@ fun CupcakeApp(
                         //  Before navigating to the next screen, you should update the view model
                         //  so that the app displays the correct subtotal
                         viewModel.setQuantity(it)
-
                         navController.navigate(CupcakeScreen.Flavor.name)
                     },
                     modifier = Modifier
@@ -140,7 +141,7 @@ fun CupcakeApp(
                 SelectOptionScreen(
                     subtotal = uiState.price, // lay tong gia tri don hang tu uiState
                     onNextButtonClicked = { navController.navigate(CupcakeScreen.Pickup.name) },
-                    onCancelButtonClicked = {},
+                    onCancelButtonClicked = {cancelOrderAndNavigateToStart(viewModel, navController)},
                     // Truyen vao tham so tuy chon dang List cac flavor
                     // Ham map tao ra 1 List tu 1 List goc.
                     // o day tu List cac flavors tao ra List cac String lay ra tu
@@ -166,6 +167,7 @@ fun CupcakeApp(
                 SelectOptionScreen(
                     subtotal = uiState.price,
                     onNextButtonClicked = { navController.navigate(CupcakeScreen.Summary.name) },
+                    onCancelButtonClicked = {cancelOrderAndNavigateToStart(viewModel, navController)},
                     options = uiState.pickupOptions,
                     onSelectionChanged = { viewModel.setDate(it) }, // change price
                     modifier = Modifier.fillMaxHeight()
@@ -173,11 +175,12 @@ fun CupcakeApp(
             }
 
             composable(route = CupcakeScreen.Summary.name) {
+                val context = LocalContext.current
                 OrderSummaryScreen(
                     orderUiState = uiState,
-                    onCancelButtonClicked = {},
+                    onCancelButtonClicked = {cancelOrderAndNavigateToStart(viewModel, navController)},
                     onSendButtonClicked = { subject: String, summary: String ->
-
+                        shareOrder(context, subject = subject, summary = summary)
                     },
                     modifier = Modifier.fillMaxHeight()
                 )
@@ -188,7 +191,38 @@ fun CupcakeApp(
     }
 }
 
+// 1 ham dung chung cho nhieu loi goi bam nut Cancel cua ca 3 screens
+private fun cancelOrderAndNavigateToStart(
+    // reset lai UiState
+    viewModel: OrderViewModel,
+    // de navigate
+    navController: NavHostController
+) {
+    // xoa het don hang
+    viewModel.resetOrder()
+    // navigate den man hinh Start, nhung ko xoa ban than man hinh Start trong Stack
+    navController.popBackStack(CupcakeScreen.Start.name, inclusive = false)
+}
 
+private fun shareOrder(context: Context, subject: String, summary: String) {
+    // An intent is a request for the system to perform some action,
+    // commonly presenting a new activity. O day Intent kieu ACTION_SEND
+    // de truyen du lieu tu app nay sang app khac, sang cho khac
+    // EXTRA_SUBJECT la ten noi dung se truyen
+    val intent = Intent(Intent.ACTION_SEND).apply {
+        type = "text/plain"
+        putExtra(Intent.EXTRA_SUBJECT, subject)
+        putExtra(Intent.EXTRA_TEXT, summary)
+    }
+
+    context.startActivity(
+        Intent.createChooser(
+            intent,
+            context.getString(R.string.new_cupcake_order)
+        )
+    )
+
+}
 
 enum class CupcakeScreen() {
     Start,

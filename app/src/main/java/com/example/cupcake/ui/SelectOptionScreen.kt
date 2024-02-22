@@ -51,9 +51,13 @@ import com.example.cupcake.ui.theme.CupcakeTheme
 fun SelectOptionScreen(
     subtotal: String,
     options: List<String>,
-    onSelectionChanged: (String) -> Unit = {},
+    onSelectionChanged: (String) -> Unit = {}, // co gia tri mac dinh cua tham so
+    // tham so kieu String la route de navigate tu screen sang
     onCancelButtonClicked: () -> Unit = {},
     onNextButtonClicked: () -> Unit = {},
+    // truyen vao tu CupcakeScreen.kt la
+    // onNextButtonClicked = { navController.navigate(CupcakeScreen.Pickup.name) }
+    // dieu huong den screen CupcakeScreen.Pickup xac nhan lay hang hay ko lay
     modifier: Modifier = Modifier
 ) {
     var selectedValue by rememberSaveable { mutableStateOf("") }
@@ -107,7 +111,7 @@ fun SelectOptionScreen(
         ) {
             OutlinedButton(
                 modifier = Modifier.weight(1f),
-                onClick = onCancelButtonClicked
+                onClick = onCancelButtonClicked // hien la ham rong
             ) {
                 Text(stringResource(R.string.cancel))
             }
@@ -116,6 +120,10 @@ fun SelectOptionScreen(
                 // the button is enabled when the user makes a selection
                 enabled = selectedValue.isNotEmpty(),
                 onClick = onNextButtonClicked
+            // Trong do, onNextButtonClicked: () -> Unit = {},
+            // truyen vao tu CupcakeScreen.kt la
+            // onNextButtonClicked = { navController.navigate(CupcakeScreen.Pickup.name) }
+            // dieu huong den screen CupcakeScreen.Pickup xac nhan lay hang hay ko lay
             ) {
                 Text(stringResource(R.string.next))
             }
