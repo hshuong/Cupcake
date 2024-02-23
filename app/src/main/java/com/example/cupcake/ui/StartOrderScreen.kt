@@ -57,7 +57,8 @@ fun StartOrderScreen(
     // ham nay duoc nhan tu ngoai vao, khi bam vao 1 nut so luong thi
     // ham ben ngoai co trach nhiem cap nhat so luong vao UiState va
     // va dieu huong. So luong la tham so cua tham so kieu ham
-    onNextButtonClicked: (Int) -> Unit, // khong co gia tri mac dinh cua tham so
+    // 1. TYPE
+    onNextButtonClicked: (Int) -> Unit, // khong co gia tri mac dinh cua tham so.
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -102,6 +103,7 @@ fun StartOrderScreen(
                     // dinh tham so onNextButtonClicked cua ham StartOrderScreen duoc
                     // dung nhu the nao. O day la tham so onNextButtonClicked duoc goi
                     // de chay.
+                    // 2. HOW. Co the truyen tham so vao ham o vi tri nay
                     onClick = {onNextButtonClicked(item.second)}
                     // Se goi va thuc hien ham onNextButtonClicked(6 cai)
                     // onNextButtonClicked duoc truyen tu CupcakeScreen.kt vao, voi dinh nghia la
