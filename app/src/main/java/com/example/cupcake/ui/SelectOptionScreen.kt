@@ -111,6 +111,7 @@ fun SelectOptionScreen(
         ) {
             OutlinedButton(
                 modifier = Modifier.weight(1f),
+                // 2. HOW. Khong dung tham so ben trong how
                 onClick = onCancelButtonClicked
             ) {
                 Text(stringResource(R.string.cancel))
