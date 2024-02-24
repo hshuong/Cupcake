@@ -167,11 +167,16 @@ fun CupcakeApp(
                     subtotal = uiState.price, // lay tong gia tri don hang tu uiState
                     onNextButtonClicked = { navController.navigate(CupcakeScreen.Pickup.name) },
                     onCancelButtonClicked = {cancelOrderAndNavigateToStart(viewModel, navController)},
-                    // Truyen vao tham so tuy chon dang List cac flavor
-                    // Ham map tao ra 1 List tu 1 List goc.
-                    // o day tu List cac flavors tao ra List cac String lay ra tu
-                    // tai nguyen String, theo tham so id. Tham so id bao nhieu thi lay
-                    // ra String co id tuong ung trong String resource (strings.xml)
+                    // List goc la list of integer cac resource id cua cac String
+                    // list dich la list cac string sau khi map tu Integer sang String
+                    // Trong context.resources.getString(id) id la Integer, resources la cac
+                    // resource trong thu muc res nhu drawable, layout, values, mipmap
+                    // R.string.chocolate la 1 so Integer
+                    // context.resources.getString(id) tra ve String ma so Integer do tro den
+                    // chu Chocolate trong String resource cua file app/main/res/values/strings.xml
+                    // <resources>
+                    //    <string name="chocolate">Chocolate</string>
+                    //  context.resources.getString(id) tra ve string "Chocolate"
                     options = DataSource.flavors.map { id -> context.resources.getString(id) },
                     // dung state hoisting. khi co event do composable tao ra thi push len viewModel
                     // de thuc thi ham o viewModel, ham o viewModel thay doi uiState hoac thuoc tinh
