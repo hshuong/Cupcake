@@ -103,8 +103,16 @@ fun StartOrderScreen(
                     // dinh tham so onNextButtonClicked cua ham StartOrderScreen duoc
                     // dung nhu the nao. O day la tham so onNextButtonClicked duoc goi
                     // de chay.
+                    // Vi dinh nghia type la
+                    // 1. TYPE
+                    // onNextButtonClicked: (Int) -> Unit,
+                    // nen how se la
                     // 2. HOW. Co the truyen tham so vao ham o vi tri nay
                     onClick = {onNextButtonClicked(item.second)}
+                    // 3. WHAT. Ham dang lambda. Dinh nghia ham se lam gi, tham so la ab, lam gi voi ab
+                    // onNextButtonClicked = {
+                    //      viewModel.setQuantity(it) ( { ab -> viewModel.setQuantity(ab) } )
+                    // }
                     // Se goi va thuc hien ham onNextButtonClicked(6 cai)
                     // onNextButtonClicked duoc truyen tu CupcakeScreen.kt vao, voi dinh nghia la
                     //    onNextButtonClicked = {
