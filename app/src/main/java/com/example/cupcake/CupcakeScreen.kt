@@ -138,6 +138,7 @@ fun CupcakeApp(
                         //  so that the app displays the correct subtotal
                         // viewModel.setQuantity(ab)
                         // it chi co y nghia trong pham vi lambda nay thoi
+                        // Doi xu voi tham so nhu the nao.
                         // it la tham so cua tham so kieu ham onNextButtonClicked cua
                         // ham @Composable StartOrderScreen.
                         // Gia tri thuc su cua tham so it duoc gan trong phan dinh nghia

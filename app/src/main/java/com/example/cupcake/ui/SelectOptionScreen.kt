@@ -114,7 +114,7 @@ fun SelectOptionScreen(
                 // 2. HOW. Khong dung tham so ben trong how
                 onClick = onCancelButtonClicked
             ) {
-                Text(stringResource(R.string.cancel))
+                                                Text(stringResource(R.string.cancel))
             }
             Button(
                 modifier = Modifier.weight(1f),
