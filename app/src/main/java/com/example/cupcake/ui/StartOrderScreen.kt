@@ -119,7 +119,8 @@ fun StartOrderScreen(
                     // tham so cho ham kieu tham so duoc dat vao dau trong Noi dung thuc ten cua ham
                     // it hay ab chi la dai dien cho tham so cua ham ben trong pham vi dinh nghia lambda
                     // nay thoi, khong phai la tham so o pham vi loi goi ham nay.
-                    // Nghia la it dai dien cho item.second cua onNextButtonClicked(item.second) chu ko phai gia tri that
+                    // Nghia la it dai dien cho item.second cua onNextButtonClicked(item.second)
+                    // chu ko phai gia tri that
                     // O lambda nay it khong phai la gia tri that.
                     // onNextButtonClicked = { ab -> viewModel.setQuantity(ab) } . rut gon thanh { viewModel.setQuantity(it) }
                     onClick = {onNextButtonClicked(item.second)}
